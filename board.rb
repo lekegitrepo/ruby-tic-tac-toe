@@ -28,7 +28,11 @@ class Board
   end
 
   def column_win?(marker)
-    
+    (0...WIDTH).any? do |column|
+      @grid.all? do |row|
+        row[column] == marker
+      end
+    end
   end
 
   def diagonal_win?(marker)
@@ -38,7 +42,7 @@ end
 
 def check_and_print(current_maker)
   @board.print_grid
-  @board.row_win?(current_maker)
+  @board.row_win?(current_maker) || @board.column_win?(current_maker)
 end
 
 @board = Board.new
@@ -49,11 +53,27 @@ p check_and_print(:X)
 p check_and_print(:X)
 @board.grid[0][2] = :X
 p check_and_print(:X)
-puts "X end"
-puts "O start"
+puts "Row: X end"
+puts "Row: O start"
 @board.grid[1][0] = :O
 p check_and_print(:O)
 @board.grid[1][1] = :O
 p check_and_print(:O)
 @board.grid[1][2] = :O
 p check_and_print(:O)
+
+puts "Column: O start"
+@board.grid[0][2] = :O
+p check_and_print(:O)
+@board.grid[1][2] = :O
+p check_and_print(:O)
+@board.grid[2][2] = :O
+p check_and_print(:O)
+
+puts "Column: X start"
+@board.grid[0][1] = :X
+p check_and_print(:X)
+@board.grid[1][1] = :X
+p check_and_print(:X)
+@board.grid[2][1] = :X
+p check_and_print(:X)

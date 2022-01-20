@@ -36,13 +36,18 @@ class Board
   end
 
   def diagonal_win?(marker)
-    
+    [->(i) { i }, ->(i) { -(i + 1) }].any? do |proc|
+      (0...HEIGHT).all? do |i|
+        # second_index = sign > 0 ? i : sign * (i+1)
+        @grid[i][proc.call(i)] == marker
+      end
+    end
   end
 end
 
 def check_and_print(current_maker)
   @board.print_grid
-  @board.row_win?(current_maker) || @board.column_win?(current_maker)
+  @board.row_win?(current_maker) || @board.column_win?(current_maker) || @board.diagonal_win?(current_maker)
 end
 
 @board = Board.new
@@ -76,4 +81,20 @@ p check_and_print(:X)
 @board.grid[1][1] = :X
 p check_and_print(:X)
 @board.grid[2][1] = :X
+p check_and_print(:X)
+
+puts "Diagonal: O start"
+@board.grid[0][0] = :O
+p check_and_print(:O)
+@board.grid[1][1] = :O
+p check_and_print(:O)
+@board.grid[2][2] = :O
+p check_and_print(:O)
+
+puts "Diagonal: X start"
+@board.grid[0][2] = :X
+p check_and_print(:X)
+@board.grid[1][1] = :X
+p check_and_print(:X)
+@board.grid[2][0] = :X
 p check_and_print(:X)

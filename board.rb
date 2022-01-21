@@ -43,6 +43,18 @@ class Board
       end
     end
   end
+
+  def [](y, x)
+    @grid [y][x]
+  end
+
+  def []=(y, x, value)
+    if @grid[y][x] != :" " && [:X, :O].include?(value)
+      @grid[y][x] = value
+    else
+      false
+    end
+  end
 end
 
 def check_and_print(current_maker)
@@ -52,49 +64,49 @@ end
 
 @board = Board.new
 p check_and_print(:X)
-@board.grid[0][0] = :X
+@board[0, 0] = :X
 p check_and_print(:X)
-@board.grid[0][1] = :X
+@board[0, 1] = :X
 p check_and_print(:X)
-@board.grid[0][2] = :X
+@board[0, 2] = :X
 p check_and_print(:X)
 puts "Row: X end"
 puts "Row: O start"
-@board.grid[1][0] = :O
+@board[1, 0] = :O
 p check_and_print(:O)
-@board.grid[1][1] = :O
+@board[1, 1] = :O
 p check_and_print(:O)
-@board.grid[1][2] = :O
+@board[1, 2] = :O
 p check_and_print(:O)
 
 puts "Column: O start"
-@board.grid[0][2] = :O
+@board[0, 2] = :O
 p check_and_print(:O)
-@board.grid[1][2] = :O
+@board[1, 2] = :O
 p check_and_print(:O)
-@board.grid[2][2] = :O
+@board[2, 2] = :O
 p check_and_print(:O)
 
 puts "Column: X start"
-@board.grid[0][1] = :X
+@board[0, 1] = :X
 p check_and_print(:X)
-@board.grid[1][1] = :X
+@board[1, 1] = :X
 p check_and_print(:X)
-@board.grid[2][1] = :X
+@board[2, 1] = :X
 p check_and_print(:X)
 
 puts "Diagonal: O start"
-@board.grid[0][0] = :O
+@board[0, 0] = :O
 p check_and_print(:O)
-@board.grid[1][1] = :O
+@board[1, 1] = :O
 p check_and_print(:O)
-@board.grid[2][2] = :O
+@board[2, 2] = :O
 p check_and_print(:O)
 
 puts "Diagonal: X start"
-@board.grid[0][2] = :X
+@board[0, 2] = :X
 p check_and_print(:X)
-@board.grid[1][1] = :X
+@board[1, 1] = :X
 p check_and_print(:X)
-@board.grid[2][0] = :X
+@board[2, 0] = :X
 p check_and_print(:X)

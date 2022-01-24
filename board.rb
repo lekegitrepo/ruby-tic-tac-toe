@@ -44,6 +44,10 @@ class Board
     end
   end
 
+  def winner?(marker)
+    row_win?(marker) || column_win?(marker) || diagonal_win?(marker)
+  end
+
   def [](y, x)
     @grid [y][x]
   end

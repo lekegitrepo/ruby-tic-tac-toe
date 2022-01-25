@@ -10,5 +10,10 @@ players = [
 
 game = Game.new(players)
 
-puts players
-p game
+puts "Welcome to tic tac toe"
+
+# puts players
+
+# p game
+game.player_turn(players[0])
+game.print_board

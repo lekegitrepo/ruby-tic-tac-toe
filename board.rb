@@ -53,7 +53,7 @@ class Board
   end
 
   def []=(y, x, value)
-    if @grid[y][x] != :" " && [:X, :O].include?(value)
+    if @grid[y][x] == :" " && [:X, :O].include?(value)
       @grid[y][x] = value
     else
       false
@@ -66,51 +66,51 @@ def check_and_print(current_maker)
   @board.row_win?(current_maker) || @board.column_win?(current_maker) || @board.diagonal_win?(current_maker)
 end
 
-@board = Board.new
-p check_and_print(:X)
-@board[0, 0] = :X
-p check_and_print(:X)
-@board[0, 1] = :X
-p check_and_print(:X)
-@board[0, 2] = :X
-p check_and_print(:X)
-puts "Row: X end"
-puts "Row: O start"
-@board[1, 0] = :O
-p check_and_print(:O)
-@board[1, 1] = :O
-p check_and_print(:O)
-@board[1, 2] = :O
-p check_and_print(:O)
+# @board = Board.new
+# p check_and_print(:X)
+# @board[0, 0] = :X
+# p check_and_print(:X)
+# @board[0, 1] = :X
+# p check_and_print(:X)
+# @board[0, 2] = :X
+# p check_and_print(:X)
+# puts "Row: X end"
+# puts "Row: O start"
+# @board[1, 0] = :O
+# p check_and_print(:O)
+# @board[1, 1] = :O
+# p check_and_print(:O)
+# @board[1, 2] = :O
+# p check_and_print(:O)
 
-puts "Column: O start"
-@board[0, 2] = :O
-p check_and_print(:O)
-@board[1, 2] = :O
-p check_and_print(:O)
-@board[2, 2] = :O
-p check_and_print(:O)
+# puts "Column: O start"
+# @board[0, 2] = :O
+# p check_and_print(:O)
+# @board[1, 2] = :O
+# p check_and_print(:O)
+# @board[2, 2] = :O
+# p check_and_print(:O)
 
-puts "Column: X start"
-@board[0, 1] = :X
-p check_and_print(:X)
-@board[1, 1] = :X
-p check_and_print(:X)
-@board[2, 1] = :X
-p check_and_print(:X)
+# puts "Column: X start"
+# @board[0, 1] = :X
+# p check_and_print(:X)
+# @board[1, 1] = :X
+# p check_and_print(:X)
+# @board[2, 1] = :X
+# p check_and_print(:X)
 
-puts "Diagonal: O start"
-@board[0, 0] = :O
-p check_and_print(:O)
-@board[1, 1] = :O
-p check_and_print(:O)
-@board[2, 2] = :O
-p check_and_print(:O)
+# puts "Diagonal: O start"
+# @board[0, 0] = :O
+# p check_and_print(:O)
+# @board[1, 1] = :O
+# p check_and_print(:O)
+# @board[2, 2] = :O
+# p check_and_print(:O)
 
-puts "Diagonal: X start"
-@board[0, 2] = :X
-p check_and_print(:X)
-@board[1, 1] = :X
-p check_and_print(:X)
-@board[2, 0] = :X
-p check_and_print(:X)
+# puts "Diagonal: X start"
+# @board[0, 2] = :X
+# p check_and_print(:X)
+# @board[1, 1] = :X
+# p check_and_print(:X)
+# @board[2, 0] = :X
+# p check_and_print(:X)

@@ -17,6 +17,6 @@ class Game
   end
 
   def print_board
-    @board.print_grid
+  p  @board.display
   end
 end

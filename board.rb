@@ -9,14 +9,24 @@ class Board
     @grid = Array.new(HEIGHT) { Array.new(WIDTH, :" ") }
   end
 
+  # def print_grid
+  #   @grid.each do |row|
+  #     puts
+  #     row.each do |cell|
+  #       print "[#{cell}]"
+  #     end
+  #   end
+  #   puts
+  # end
+
   def display
-    output = ['']
-    @grid.reduce(['']) do |row_cells, row|
-      row_cells <<
-        (row.reduce(['']) do |row_string, cell|
-          row_string << "[#{cell}]"
-        end)
-    end
+    output =
+      @grid.reduce([]) do |row_cells, row|
+        row_cells <<
+          (row.reduce([]) do |row_string, cell|
+            row_string << "[#{cell}]"
+          end)
+      end
     output << ''
   end
 
@@ -63,7 +73,7 @@ class Board
 end
 
 def check_and_print(current_maker)
-  @board.display
+  @board.print_grid
   @board.row_win?(current_maker) || @board.column_win?(current_maker) || @board.diagonal_win?(current_maker)
 end
 

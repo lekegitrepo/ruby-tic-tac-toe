@@ -14,6 +14,8 @@ puts "Welcome to tic tac toe"
 
 # puts players
 
+puts game.display_board
+
 # p game
-game.player_turn(players[0])
-game.print_board
+p game.player_turn(players[0])
+puts game.display_board

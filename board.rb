@@ -9,19 +9,51 @@ class Board
     @grid = Array.new(HEIGHT) { Array.new(WIDTH, :" ") }
   end
 
+  # def display
+  #   @grid.each do |row|
+  #     puts
+  #     row.each do |cell|
+  #       print "[#{cell}]"
+  #     end
+  #   end
+  #   puts
+  # end
+
   def display
-    @grid.each do |row|
-      puts
-      row.each do |cell|
-        print "[#{cell}]"
-      end
-    end
-    puts
+    output = ''
+    output << generate_header
+    output << generate_rows
   end
 
-  # def display
-  #   @grid.reduce("\n") { |row_cells, row| row_cells << format_row(row) } << "\n"
-  # end
+  def winner?(marker)
+    row_win?(marker) || column_win?(marker) || diagonal_win?(marker)
+  end
+
+  def [](y, x)
+    @grid [y][x]
+  end
+
+  def []=(y, x, value)
+    if @grid[y][x] == :" " && [:X, :O].include?(value)
+      @grid[y][x] = value
+    else
+      false
+    end
+  end
+
+  private
+
+  def generate_header
+    (1..WIDTH).reduce('   ') { |header, row_number| header << "  #{row_number}" } << "\n"
+  end
+
+  def generate_rows
+    @grid.reduce("\n") { |row_cells, row| row_cells << format_row(row) } << "\n"
+  end
+
+  def format_row(row)
+    row.reduce('    ') { |row_string, cell| row_string << "[#{cell}]" } << "\n"
+  end
 
   def row_win?(marker)
     @grid.any? do |row|
@@ -46,28 +78,6 @@ class Board
         @grid[i][proc.call(i)] == marker
       end
     end
-  end
-
-  def winner?(marker)
-    row_win?(marker) || column_win?(marker) || diagonal_win?(marker)
-  end
-
-  def [](y, x)
-    @grid [y][x]
-  end
-
-  def []=(y, x, value)
-    if @grid[y][x] == :" " && [:X, :O].include?(value)
-      @grid[y][x] = value
-    else
-      false
-    end
-  end
-
-  private
-
-  def format_row(row)
-    row.reduce('') { |row_string, cell| row_string << "[#{cell}]" } << "\n"
   end
 end
 

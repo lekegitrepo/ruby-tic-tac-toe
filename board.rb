@@ -48,11 +48,16 @@ class Board
   end
 
   def generate_rows
-    @grid.reduce("\n") { |row_cells, row| row_cells << format_row(row) } << "\n"
+    letter = '@'
+    @grid.reduce('') do |row_cells, row|
+      letter = letter.next
+      row_cells << format_row(row, letter)
+      row_cells
+    end
   end
 
-  def format_row(row)
-    row.reduce('    ') { |row_string, cell| row_string << "[#{cell}]" } << "\n"
+  def format_row(row, letter)
+    row.reduce("  #{letter} ") { |row_string, cell| row_string << "[#{cell}]" } << "\n"
   end
 
   def row_win?(marker)

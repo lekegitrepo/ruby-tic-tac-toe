@@ -21,23 +21,29 @@ class Player
     loop do
       input = gets
       choice = translation_row(input)
-      return choice if choice
+      return choice if in_bounds?(choice)
       puts 'invalid move'
     end
   end
 
   def get_col
     player_move_prompt('column')
-    gets.to_i - 1
+    input = gets
+    choice = translation_column(input)
+    return choice if in_bounds?(choice)
+    puts 'invalid move'
   end
 
   def translation_row(input)
-    choice = ROW_MAP[input[0].upcase.to_sym]
-    validate_choice(choice)
+    ROW_MAP[input[0].upcase.to_sym]
   end
 
-  def validate_choice(choice)
-    choice if (0..2).include?(choice)
+  def translation_column(input)
+    input.to_i - 1
+  end
+
+  def in_bounds?(choice)
+    (0..2).include?(choice)
   end
 
   def player_move_prompt(string)

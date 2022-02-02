@@ -18,12 +18,26 @@ class Player
 
   def get_row
     player_move_prompt('row')
-    ROW_MAP[gets[0].upcase.to_sym]
+    loop do
+      input = gets
+      choice = translation_row(input)
+      return choice if choice
+      puts 'invalid move'
+    end
   end
 
   def get_col
     player_move_prompt('column')
     gets.to_i - 1
+  end
+
+  def translation_row(input)
+    choice = ROW_MAP[input[0].upcase.to_sym]
+    validate_choice(choice)
+  end
+
+  def validate_choice(choice)
+    choice if (0..2).include?(choice)
   end
 
   def player_move_prompt(string)

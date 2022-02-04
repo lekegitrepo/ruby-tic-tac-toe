@@ -14,7 +14,9 @@ puts "Welcome to tic tac toe"
 
 # puts players
 
-puts game.display_board
+winner = game.game_loop
+
+puts "#{winner.name} won!"
 
 # p game
 p game.player_turn(players[0])

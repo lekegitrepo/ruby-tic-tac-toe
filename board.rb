@@ -9,23 +9,24 @@ class Board
     @grid = Array.new(HEIGHT) { Array.new(WIDTH, :" ") }
   end
 
-  # def display
-  #   @grid.each do |row|
-  #     puts
-  #     row.each do |cell|
-  #       print "[#{cell}]"
-  #     end
-  #   end
-  #   puts
-  # end
-
   def display
-    output = ''
-    output << generate_header
-    output << generate_rows
+    @grid.each do |row|
+      puts
+      row.each do |cell|
+        print "[#{cell}]"
+      end
+    end
+    puts
   end
 
-  def winner?(marker)
+  # def display
+  #   output = ''
+  #   output << generate_header
+  #   output << generate_rows
+  # end
+
+  def winner?(player)
+    marker = player.marker
     row_win?(marker) || column_win?(marker) || diagonal_win?(marker)
   end
 

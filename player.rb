@@ -9,7 +9,7 @@ class Player
     column: -> (input) { input.to_i - 1 }
   }
 
-  attr_reader :marker
+  attr_reader :marker, name
 
   def initialize(name, marker)
     @name = name
@@ -18,7 +18,6 @@ class Player
   end
 
   def get_move
-    [get_coordinates(:row), get_coordinates(:column)]
     TRANSLATIONS.map do |row_or_column, translator|
       get_coordinates(row_or_column, translator)
     end

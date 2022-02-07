@@ -34,12 +34,19 @@ class Board
     @grid [y][x]
   end
 
-  def []=(y, x, value)
-    if @grid[y][x] == :" " && [:X, :O].include?(value)
-      @grid[y][x] = value
-    else
-      false
+  def space_left?
+    @grid.any? do |row|
+      row.any? do |cell|
+        cell == :" "
+      end
     end
+  end
+
+  def place_marker(coordinates, value)
+    y, x = coordinates
+    # @grid[y][x] = value if @grid[y][x] == :" "
+
+    (@grid[y][x] == :" ") && (@grid[y][x] = value)
   end
 
   private

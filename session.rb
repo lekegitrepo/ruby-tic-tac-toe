@@ -11,8 +11,28 @@ class Session
       Player.new('Laura', :X),
       Player.new('Marco', :O)
     ]
+    play_loop   
+  end
 
-    play_game    
+  def play_loop
+    loop do
+      puts "Starting a new game!"
+      play_game
+      break unless play_again?
+    end
+    puts "Goodbye!"
+  end
+
+  def play_again?
+    print "Play again? (y/n) \n > "
+    answer = gets.strip[0].upcase
+    if answer == 'Y'
+      return true
+    elsif answer == 'N'
+      return false
+    else
+      print "What was that? \n > "
+    end
   end
 
   def play_game

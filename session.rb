@@ -11,6 +11,7 @@ class Session
       Player.new('Laura', :X),
       Player.new('Marco', :O)
     ]
+    @ties = 0
     play_loop   
   end
 
@@ -26,12 +27,13 @@ class Session
   def play_again?
     print "Play again? (y/n) \n > "
     answer = gets.strip[0].upcase
-    if answer == 'Y'
+    case answer
+    when 'Y'
       return true
-    elsif answer == 'N'
+    when 'N'
       return false
     else
-      print "What was that? \n > "
+      print "What was that? (type Y or N) \n > "
     end
   end
 
@@ -40,11 +42,18 @@ class Session
     winner = game.game_loop
     if winner
       puts "#{winner.name} won!"
+      winner.increment_score
     else
       puts 'The game is a tie'
+      @ties += 1
     end
     # p game
     # p game.player_turn(players[0])
     # puts game.display_board
+  end
+
+  def display_score
+    score_array = @players.map{ |player| "#{player.name} has won #{player.score} times" }
+    score_array << "#{@player[0].name} and #{@player[1].name} have tied #{@ties} times"
   end
 end

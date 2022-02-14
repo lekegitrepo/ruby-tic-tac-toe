@@ -9,12 +9,20 @@ class Player
     column: -> (input) { input.to_i - 1 }
   }
 
-  attr_reader :marker, name
+  attr_reader :marker, :name, :score
 
   def initialize(name, marker)
     @name = name
     @marker = marker
     @score = 0
+  end
+
+  def score
+    @score
+  end
+
+  def increment_score
+    @score += 1
   end
 
   def get_move

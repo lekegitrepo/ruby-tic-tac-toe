@@ -19,6 +19,7 @@ class Session
     loop do
       puts "Starting a new game!"
       play_game
+      puts display_score
       break unless play_again?
     end
     puts "Goodbye!"
@@ -53,7 +54,13 @@ class Session
   end
 
   def display_score
+    score_array = ['', "The scores after #{game_played} games"]
     score_array = @players.map{ |player| "#{player.name} has won #{player.score} times" }
     score_array << "#{@player[0].name} and #{@player[1].name} have tied #{@ties} times"
+    score_array << ''
+  end
+
+  def game_played
+    @ties + @players.reduce(0) { |acc, el| acc + el.score }
   end
 end

@@ -3,10 +3,13 @@
 require_relative 'board'
 
 class Game
+  attr_reader :winner
+
   def initialize(players)
     @players = players
     @board = Board.new
     @winner = nil
+    game_loop
   end
 
   def game_loop

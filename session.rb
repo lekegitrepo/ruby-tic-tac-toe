@@ -5,20 +5,21 @@ require_relative 'player'
 
 class Session
   def initialize
-    puts "Welcome to tic tac toe"
-
     @players = [
       Player.new('Laura', :X),
       Player.new('Marco', :O)
     ]
     @ties = 0
-    play_loop   
+    play_loop
   end
 
   def play_loop
+    puts "Welcome to tic tac toe"
     loop do
       puts "Starting a new game!"
-      play_game
+      game = Game.new(@players)
+      @winner = game.winner
+      update_scores
       puts display_score
       break unless play_again?
     end
@@ -38,25 +39,18 @@ class Session
     end
   end
 
-  def play_game
-    game = Game.new(@players)
-    winner = game.game_loop
-    if winner
-      puts "#{winner.name} won!"
-      winner.increment_score
-    else
-      puts 'The game is a tie'
-      @ties += 1
-    end
-    # p game
-    # p game.player_turn(players[0])
-    # puts game.display_board
+  def update_scores
+    @winner ? @winner.increment_score : @ties += 1
+  end
+
+  def announce_winner
+    @winner ? "#{@winner.name} won!" : 'The game is a tie'
   end
 
   def display_score
-    score_array = ['', "The scores after #{game_played} games"]
-    score_array = @players.map{ |player| "#{player.name} has won #{player.score} times" }
-    score_array << "#{@player[0].name} and #{@player[1].name} have tied #{@ties} times"
+    score_array = [announce_winner, '', "The scores after #{game_played} games"]
+    score_array.concat(@players.map { |player| "#{player.name} has won #{player.score} times" })
+    score_array << "#{@players[0].name} and #{@players[1].name} have tied #{@ties} times"
     score_array << ''
   end
 

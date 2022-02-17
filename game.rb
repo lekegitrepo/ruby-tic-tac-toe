@@ -9,17 +9,27 @@ class Game
     @players = players
     @board = Board.new
     @winner = nil
-    game_loop
+    start_game
   end
 
-  def game_loop
+  def start_game
+    puts "Starting a new game!"
+    puts "#{@players.first.name} goes first"
+    play_loop
+    puts @board.display
+    puts announce_winner
+  end
+
+  def play_loop
     current_player, other_player = @players
     until @winner || !@board.space_left? do
       player_turn(current_player)
       current_player, other_player = other_player, current_player
     end
-    puts @board.display
-    @winner
+  end
+
+  def announce_winner
+    @winner ? "#{@winner.name} won!" : 'The game is a tie'
   end
 
   def player_turn(player)

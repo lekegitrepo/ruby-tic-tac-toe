@@ -5,25 +5,30 @@ require_relative 'player'
 
 class Session
   def initialize
+    puts "Welcome to tic tac toe"
     @players = [
-      Player.new('Laura', :X),
-      Player.new('Marco', :O)
+      create_player(:X),
+      create_player(:O)
     ]
     @ties = 0
     play_loop
+    puts "Goodbye!"
+  end
+
+  def create_player(marker)
+    print "Who want to play as player #{marker} \n> "
+    name = gets.chomp.strip
+    Player.new(name, marker)
   end
 
   def play_loop
-    puts "Welcome to tic tac toe"
     loop do
       puts "Starting a new game!"
-      game = Game.new(@players)
-      @winner = game.winner
-      update_scores
-      puts display_score
+      game = Game.new(game_played.even? ? @players : @players.reverse)
+      update_scores(game.winner)
+      puts score_board
       break unless play_again?
     end
-    puts "Goodbye!"
   end
 
   def play_again?
@@ -39,22 +44,22 @@ class Session
     end
   end
 
-  def update_scores
-    @winner ? @winner.increment_score : @ties += 1
+  def update_scores(winner)
+    winner ? winner.increment_score : @ties += 1
   end
 
-  def announce_winner
-    @winner ? "#{@winner.name} won!" : 'The game is a tie'
-  end
-
-  def display_score
-    score_array = [announce_winner, '', "The scores after #{game_played} games"]
-    score_array.concat(@players.map { |player| "#{player.name} has won #{player.score} times" })
-    score_array << "#{@players[0].name} and #{@players[1].name} have tied #{@ties} times"
+  def score_board
+    score_array = ['', "The score after #{game_played} game#{handle_plural(game_played)}"]
+    score_array.concat(@players.map { |player| "#{player.name} has won #{player.score} time#{handle_plural(player.score)}" })
+    score_array << "#{@players[0].name} and #{@players[1].name} have tied #{@ties} time#{handle_plural(@ties)}"
     score_array << ''
   end
 
   def game_played
     @ties + @players.reduce(0) { |acc, el| acc + el.score }
+  end
+
+  def handle_plural(value)
+    's' unless value == 1
   end
 end

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+require_relative 'input_helper'
+
 class Player
+  include InputHelper
 
   ROW_MAP = (:A..:C).zip(0..2).to_h
 
@@ -34,7 +37,7 @@ class Player
   private
 
   def get_coordinates(row_or_column, translator)
-    print player_move_prompt(row_or_column)
+    prompt "Pick a #{row_or_column}"
     loop do
       input = gets
       choice = translator.call(input)
@@ -65,7 +68,4 @@ class Player
     (0..2).include?(choice)
   end
 
-  def player_move_prompt(row_or_column)
-    "Pick a #{row_or_column} \n >"
-  end
 end
